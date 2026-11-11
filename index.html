@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diwali Lights & Greetings</title>
+  <style>
+    :root {
+      --bg: #121018;
+      --gold: #FFD700;
+      --saffron: #FF7722;
+      --cream: #FAF9F6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #1d162a 0%, var(--bg) 58%);
+      color: var(--cream);
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem 3rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(2px 2px at 15% 20%, rgba(255, 215, 0, 0.85), transparent),
+        radial-gradient(1.5px 1.5px at 72% 14%, rgba(250, 249, 246, 0.9), transparent),
+        radial-gradient(2px 2px at 38% 68%, rgba(255, 119, 34, 0.8), transparent),
+        radial-gradient(1px 1px at 88% 58%, rgba(250, 249, 246, 0.85), transparent),
+        radial-gradient(1.8px 1.8px at 52% 33%, rgba(255, 215, 0, 0.7), transparent),
+        radial-gradient(1.4px 1.4px at 8% 75%, rgba(250, 249, 246, 0.8), transparent),
+        radial-gradient(1.6px 1.6px at 92% 84%, rgba(255, 215, 0, 0.75), transparent),
+        radial-gradient(1px 1px at 63% 90%, rgba(255, 119, 34, 0.75), transparent);
+      animation: twinkle 5s ease-in-out infinite alternate;
+      opacity: 0.75;
+    }
+
+    .stars::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 24% 54%, rgba(250, 249, 246, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 41% 10%, rgba(255, 215, 0, 0.75), transparent),
+        radial-gradient(1.3px 1.3px at 76% 74%, rgba(250, 249, 246, 0.8), transparent),
+        radial-gradient(2px 2px at 58% 47%, rgba(255, 119, 34, 0.65), transparent),
+        radial-gradient(1px 1px at 12% 92%, rgba(255, 215, 0, 0.65), transparent);
+      animation: twinkle 7.5s ease-in-out infinite alternate-reverse;
+      opacity: 0.7;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.02); }
+      100% { opacity: 0.65; transform: scale(1); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(960px, 100%);
+      text-align: center;
+      display: grid;
+      gap: 1.8rem;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: 0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #f4dcc2;
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    }
+
+    .diyas {
+      display: flex;
+      justify-content: center;
+      gap: clamp(0.45rem, 1.5vw, 1rem);
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .diya {
+      --flame-opacity: 0;
+      width: 92px;
+      height: 108px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease;
+      padding: 0;
+    }
+
+    .diya:hover,
+    .diya:focus-visible {
+      transform: translateY(-3px);
+      outline: none;
+    }
+
+    .diya-bowl {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: 72px;
+      height: 38px;
+      background: linear-gradient(180deg, #bb5b22 0%, #8f3c16 100%);
+      border-radius: 0 0 44px 44px;
+      border: 2px solid rgba(250, 249, 246, 0.15);
+      box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.35);
+    }
+
+    .diya-bowl::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 5px;
+      width: 58px;
+      height: 14px;
+      background: #cf7332;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .wick {
+      position: absolute;
+      bottom: 39px;
+      left: 44px;
+      width: 4px;
+      height: 16px;
+      background: #f2d4aa;
+      border-radius: 999px;
+      transform: rotate(-8deg);
+      z-index: 2;
+    }
+
+    .flame {
+      position: absolute;
+      bottom: 48px;
+      left: 33px;
+      width: 26px;
+      height: 34px;
+      background: radial-gradient(circle at 50% 65%, #ffd97f 0%, #ff9a2b 52%, rgba(255, 120, 36, 0.9) 78%, transparent 100%);
+      border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+      transform-origin: center bottom;
+      opacity: var(--flame-opacity);
+      filter: drop-shadow(0 0 6px rgba(255, 180, 80, 0.55));
+      z-index: 3;
+      animation: flicker 1.2s ease-in-out infinite;
+    }
+
+    .diya.lit {
+      --flame-opacity: 1;
+    }
+
+    .diya.lit .flame {
+      box-shadow: 0 0 20px 7px rgba(255, 178, 61, 0.45), 0 0 35px 15px rgba(255, 119, 34, 0.24);
+    }
+
+    @keyframes flicker {
+      0%, 100% { transform: scale(1) rotate(-2deg); }
+      25% { transform: scale(1.05, 0.95) rotate(2deg); }
+      50% { transform: scale(0.98, 1.04) rotate(-1deg); }
+      75% { transform: scale(1.03) rotate(1deg); }
+    }
+
+    .card-panel {
+      background: rgba(24, 20, 32, 0.78);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      width: min(680px, 100%);
+      margin: 0 auto;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      text-align: left;
+    }
+
+    label {
+      display: grid;
+      gap: 0.35rem;
+      color: var(--cream);
+      font-size: 0.95rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      background: rgba(18, 16, 24, 0.72);
+      color: var(--cream);
+    }
+
+    input:focus {
+      outline: 2px solid rgba(255, 215, 0, 0.75);
+      outline-offset: 1px;
+    }
+
+    .actions {
+      margin-top: 0.95rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    button.action-btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0.63rem 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    button.action-btn:hover,
+    button.action-btn:focus-visible {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+      outline: none;
+    }
+
+    #generateBtn {
+      background: linear-gradient(135deg, var(--gold), #ffb700);
+      color: #2c1902;
+    }
+
+    #copyBtn {
+      background: linear-gradient(135deg, var(--saffron), #ff9a2b);
+      color: #2e1205;
+    }
+
+    .greeting-card {
+      margin-top: 1rem;
+      border-radius: 12px;
+      border: 1px dashed rgba(250, 249, 246, 0.35);
+      padding: 1rem;
+      min-height: 96px;
+      color: #fff2e2;
+      background: rgba(255, 119, 34, 0.07);
+      line-height: 1.45;
+      white-space: pre-line;
+    }
+
+    .status {
+      min-height: 1.2rem;
+      color: #ffd8aa;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    #fireworks {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .diya {
+        width: 82px;
+        height: 100px;
+      }
+
+      .diya-bowl {
+        left: 8px;
+        width: 66px;
+      }
+
+      .flame {
+        left: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <canvas id="fireworks" aria-hidden="true"></canvas>
+
+  <main class="page">
+    <header>
+      <h1>Happy Diwali</h1>
+      <p class="subtitle">Light every diya and share a festive greeting.</p>
+    </header>
+
+    <section>
+      <div class="diyas" id="diyas" aria-label="Interactive diyas"></div>
+    </section>
+
+    <section class="card-panel" aria-label="Greeting generator">
+      <div class="form-grid">
+        <label>
+          Recipient Name
+          <input id="recipient" type="text" placeholder="Enter recipient name" autocomplete="off" />
+        </label>
+        <label>
+          Sender Name
+          <input id="sender" type="text" placeholder="Enter your name" autocomplete="off" />
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="generateBtn" class="action-btn" type="button">Generate Card</button>
+        <button id="copyBtn" class="action-btn" type="button">Copy Greeting</button>
+      </div>
+
+      <article class="greeting-card" id="greetingCard" aria-live="polite">
+        ✨ Wishing you a luminous and joyful Diwali! ✨
+      </article>
+      <p class="status" id="statusMessage" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script>
+    const diyasContainer = document.getElementById('diyas');
+    const recipientInput = document.getElementById('recipient');
+    const senderInput = document.getElementById('sender');
+    const generateBtn = document.getElementById('generateBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const greetingCard = document.getElementById('greetingCard');
+    const statusMessage = document.getElementById('statusMessage');
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+
+    const totalDiyas = 5;
+    let litCount = 0;
+    let fireworksTriggered = false;
+    let audioContext;
+
+    function createDiya(index) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'diya';
+      button.setAttribute('aria-label', `Light diya ${index + 1}`);
+      button.innerHTML = '<span class="flame"></span><span class="wick"></span><span class="diya-bowl"></span>';
+      button.addEventListener('click', () => lightDiya(button));
+      return button;
+    }
+
+    function lightDiya(diyaButton) {
+      if (diyaButton.classList.contains('lit')) {
+        return;
+      }
+      diyaButton.classList.add('lit');
+      litCount += 1;
+      playChime();
+
+      if (litCount === totalDiyas && !fireworksTriggered) {
+        fireworksTriggered = true;
+        launchFireworks();
+      }
+    }
+
+    function playChime() {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) {
+        return;
+      }
+
+      if (!audioContext) {
+        audioContext = new AudioCtx();
+      }
+
+      const now = audioContext.currentTime;
+      const frequencies = [523.25, 659.25, 783.99];
+      frequencies.forEach((frequency, i) => {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.type = 'sine';
+        oscillator.frequency.value = frequency;
+        gainNode.gain.setValueAtTime(0.0001, now + i * 0.07);
+        gainNode.gain.exponentialRampToValueAtTime(0.08, now + i * 0.07 + 0.03);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 0.4);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.start(now + i * 0.07);
+        oscillator.stop(now + i * 0.07 + 0.42);
+      });
+    }
+
+    function generateMessage() {
+      const recipient = recipientInput.value.trim() || 'you';
+      const sender = senderInput.value.trim() || 'your well-wisher';
+      greetingCard.textContent = `Dear ${recipient},\nMay this Diwali fill your home with light, your heart with peace, and your year with success.\nWarm wishes,\n${sender}`;
+      statusMessage.textContent = 'Greeting card updated.';
+    }
+
+    async function copyGreeting() {
+      try {
+        await navigator.clipboard.writeText(greetingCard.textContent.trim());
+        statusMessage.textContent = 'Greeting copied to clipboard!';
+      } catch (error) {
+        statusMessage.textContent = 'Clipboard unavailable. Please copy manually.';
+      }
+    }
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function launchFireworks() {
+      resizeCanvas();
+      const particles = [];
+      const burstCount = 4;
+      const colors = ['#FFD700', '#FF7722', '#FAF9F6', '#FFC94A'];
+
+      for (let i = 0; i < burstCount; i += 1) {
+        const centerX = canvas.width * (0.2 + Math.random() * 0.6);
+        const centerY = canvas.height * (0.2 + Math.random() * 0.45);
+        for (let j = 0; j < 36; j += 1) {
+          const angle = (Math.PI * 2 * j) / 36;
+          const speed = 1.6 + Math.random() * 2.8;
+          particles.push({
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 62 + Math.random() * 12,
+            color: colors[(j + i) % colors.length]
+          });
+        }
+      }
+
+      function tick() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.028;
+          p.life -= 1;
+
+          if (p.life > 0) {
+            ctx.globalAlpha = p.life / 74;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+
+        ctx.globalAlpha = 1;
+        for (let i = particles.length - 1; i >= 0; i -= 1) {
+          if (particles[i].life <= 0) {
+            particles.splice(i, 1);
+          }
+        }
+
+        if (particles.length > 0) {
+          requestAnimationFrame(tick);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      tick();
+      statusMessage.textContent = 'All diyas are lit — Happy Diwali!';
+    }
+
+    for (let i = 0; i < totalDiyas; i += 1) {
+      diyasContainer.appendChild(createDiya(i));
+    }
+
+    generateBtn.addEventListener('click', generateMessage);
+    copyBtn.addEventListener('click', copyGreeting);
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+  </script>
+</body>
+</html>
